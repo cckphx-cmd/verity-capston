@@ -1,0 +1,31 @@
+question_id,question,category,expected_keywords
+1,What are the payment terms?,Financial,net;days;invoice;payment
+2,What is the contract's effective date?,Legal,effective;date;commencement
+3,What is the termination notice period?,Legal,terminate;notice;days;period
+4,Who are the parties to the agreement?,Legal,parties;agreement;company;names
+5,What is the highest revenue number?,Financial,revenue;highest;amount;total
+6,Compare termination clauses,Legal,termination;clauses;comparison;notice
+7,Which document mentions Q4?,Financial,Q4;quarter;fourth;document
+8,What are the force majeure provisions?,Legal,force majeure;provisions;clause;events
+9,What are the confidentiality requirements?,Legal,confidential;confidentiality;requirements;disclosure
+10,What is the liability limitation?,Legal,liability;limitation;limit;damages
+11,Describe the pricing structure,Financial,pricing;structure;rates;fees
+12,What are the performance metrics?,Business,performance;metrics;KPI;targets
+13,What is the renewal process?,Legal,renewal;process;extension;term
+14,What are the warranty terms?,Legal,warranty;warranties;terms;guarantee
+15,Summarize the key obligations,Legal,obligations;duties;responsibilities;requirements
+16,What is the dispute resolution process?,Legal,dispute;resolution;arbitration;mediation
+17,What are the reporting requirements?,Business,reporting;requirements;reports;frequency
+18,What is the intellectual property clause?,Legal,intellectual property;IP;ownership;rights
+19,What are the milestone deliverables?,Business,milestones;deliverables;timeline;schedule
+20,What is the indemnification clause?,Legal,indemnification;indemnify;hold harmless;liability
+21,What are the data security requirements?,Technical,data security;security;protection;encryption
+22,What is the service level agreement?,Business,SLA;service level;uptime;performance
+23,What are the termination conditions?,Legal,termination;conditions;breach;cause
+24,What is the governance structure?,Business,governance;structure;board;management
+25,What are the audit rights?,Legal,audit;rights;inspection;records
+26,What is the amendment process?,Legal,amendment;modification;change;process
+27,What are the insurance requirements?,Legal,insurance;coverage;requirements;liability
+28,What is the assignment clause?,Legal,assignment;transfer;rights;consent
+29,What are the compliance obligations?,Legal,compliance;obligations;regulations;laws
+30,What is the entire agreement clause?,Legal,entire agreement;merger;supersedes;integration

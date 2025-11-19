@@ -1,0 +1,44 @@
+question_id,question,category,app_answer,has_answer,answer_correct,cited_sources,source_correct,score,notes
+1,What are the payment terms?,Financial,,,,,,,,
+2,What is the contract's effective date?,Legal,,,,,,,,
+3,What is the termination notice period?,Legal,,,,,,,,
+4,Who are the parties to the agreement?,Legal,,,,,,,,
+5,What is the highest revenue number?,Financial,,,,,,,,
+6,Compare termination clauses,Legal,,,,,,,,
+7,Which document mentions Q4?,Financial,,,,,,,,
+8,What are the force majeure provisions?,Legal,,,,,,,,
+9,What are the confidentiality requirements?,Legal,,,,,,,,
+10,What is the liability limitation?,Legal,,,,,,,,
+11,Describe the pricing structure,Financial,,,,,,,,
+12,What are the performance metrics?,Business,,,,,,,,
+13,What is the renewal process?,Legal,,,,,,,,
+14,What are the warranty terms?,Legal,,,,,,,,
+15,Summarize the key obligations,Legal,,,,,,,,
+16,What is the dispute resolution process?,Legal,,,,,,,,
+17,What are the reporting requirements?,Business,,,,,,,,
+18,What is the intellectual property clause?,Legal,,,,,,,,
+19,What are the milestone deliverables?,Business,,,,,,,,
+20,What is the indemnification clause?,Legal,,,,,,,,
+21,What are the data security requirements?,Technical,,,,,,,,
+22,What is the service level agreement?,Business,,,,,,,,
+23,What are the termination conditions?,Legal,,,,,,,,
+24,What is the governance structure?,Business,,,,,,,,
+25,What are the audit rights?,Legal,,,,,,,,
+26,What is the amendment process?,Legal,,,,,,,,
+27,What are the insurance requirements?,Legal,,,,,,,,
+28,What is the assignment clause?,Legal,,,,,,,,
+29,What are the compliance obligations?,Legal,,,,,,,,
+30,What is the entire agreement clause?,Legal,,,,,,,,
+
+SCORING INSTRUCTIONS:
+- has_answer: 1 if system provided an answer, 0 if no answer
+- answer_correct: 1 = fully correct, 0.5 = partially correct, 0 = wrong/irrelevant
+- cited_sources: 1 if sources were cited, 0 if not
+- source_correct: 1 if correct documents cited, 0 if wrong/no sources
+- score: (answer_correct + source_correct) / 2
+
+METRICS TO CALCULATE:
+- Response Rate = COUNT(has_answer=1) / 30 * 100
+- Accuracy = SUM(answer_correct) / 30 * 100
+- Source Citation Rate = COUNT(cited_sources=1) / 30 * 100
+- Average Score = AVERAGE(score) * 100
