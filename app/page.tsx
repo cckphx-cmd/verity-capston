@@ -48,9 +48,9 @@ export default function LandingPage() {
             <div className="w-[30%] bg-cream-50 border-r border-cream-300 p-6">
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-cream-900 mb-1">
-                  Atlas AI Workspace
+                  Verity
                 </h3>
-                <p className="text-xs text-gray-600 font-semibold">Kingsbury Inc</p>
+                <p className="text-xs text-gray-600 font-semibold">AI Workspace</p>
               </div>
 
               <div className="space-y-2">

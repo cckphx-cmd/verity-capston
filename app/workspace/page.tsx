@@ -138,42 +138,67 @@ export default function WorkspacePage() {
       <Navigation />
 
       <div className="flex h-[calc(100vh-73px)]">
-        {/* MAIN AREA - Chat Interface */}
-        <div className="flex-1 bg-white flex flex-col">
-          {/* Header with Input at Top */}
-          <div className="border-b border-cream-300 px-8 py-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-2xl font-medium text-cream-900">Document Q&A</h2>
-                <p className="text-sm text-gray-600 mt-2">
-                  {selectedDocuments.length > 0
-                    ? `Querying ${selectedDocuments.length} of ${documents.length} document${documents.length > 1 ? 's' : ''}`
-                    : documents.length > 0
-                    ? 'Select documents from the Upload page to start'
-                    : 'Upload documents to start asking questions'}
-                </p>
-              </div>
-              {messages.length > 1 && (
-                <button
-                  onClick={exportConversation}
-                  className="flex items-center gap-2 px-4 py-2 text-cream-600 hover:bg-cream-100 rounded-lg transition-colors text-sm font-medium"
-                  title="Export conversation (Cmd/Ctrl + E)"
-                >
-                  <Download size={18} />
-                  Export
-                </button>
-              )}
-            </div>
+        {/* LEFT SIDEBAR - Recent Questions (30%) */}
+        <div className="w-[30%] bg-cream-50 border-r border-cream-300 flex flex-col">
+          <div className="p-6 border-b border-cream-300">
+            <h3 className="text-sm font-semibold text-cream-900 mb-1">Verity</h3>
+            <p className="text-xs text-gray-600 font-semibold">
+              {selectedDocuments.length > 0
+                ? `${selectedDocuments.length} of ${documents.length} document${documents.length > 1 ? 's' : ''}`
+                : 'No documents selected'}
+            </p>
+          </div>
 
-            {/* Input Area at Top */}
-            <div className="flex gap-3">
+          <div className="flex-1 overflow-y-auto p-4">
+            <p className="text-xs font-semibold text-gray-600 mb-3 px-2">RECENT QUESTIONS</p>
+            {recentQuestions.length > 0 ? (
+              <div className="space-y-2">
+                {recentQuestions.map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setInputMessage(q.content)}
+                    className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-white rounded-lg transition-colors line-clamp-2"
+                  >
+                    {q.content}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Clock className="mx-auto mb-2 text-gray-400" size={32} />
+                <p className="text-xs text-gray-600">No questions yet</p>
+                <p className="text-[10px] text-gray-500 mt-1">Your recent questions will appear here</p>
+              </div>
+            )}
+          </div>
+
+          {/* Export button at bottom of sidebar */}
+          {messages.length > 1 && (
+            <div className="p-4 border-t border-cream-300">
+              <button
+                onClick={exportConversation}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 text-cream-600 hover:bg-white rounded-lg transition-colors text-sm font-medium"
+                title="Export conversation (Cmd/Ctrl + E)"
+              >
+                <Download size={16} />
+                Export
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* MAIN AREA - Chat Interface (70%) */}
+        <div className="flex-1 bg-white flex flex-col">
+          {/* Input Area at Top of Conversation */}
+          <div className="border-b border-cream-300 p-6">
+            <div className="flex gap-3 mb-3">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !isProcessing && handleSendMessage()}
                 placeholder="Ask a question about your documents..."
-                className="flex-1 px-5 py-4 bg-white border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cream-500 text-cream-900 text-sm placeholder:text-gray-600"
+                className="flex-1 px-5 py-4 bg-cream-50 border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cream-500 text-cream-900 text-sm placeholder:text-gray-600"
                 disabled={isProcessing || selectedDocuments.length === 0}
               />
               <button
@@ -186,7 +211,7 @@ export default function WorkspacePage() {
             </div>
 
             {/* Keyboard Shortcuts Hint */}
-            <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500">
+            <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
               <div className="flex items-center gap-1">
                 <Command size={12} />
                 <span>K</span>
@@ -294,44 +319,6 @@ export default function WorkspacePage() {
 
             {/* Scroll anchor */}
             <div ref={messagesEndRef} />
-          </div>
-        </div>
-
-        {/* RIGHT SIDEBAR - Question History */}
-        <div className="w-80 bg-cream-50 border-l border-cream-300 flex flex-col">
-          <div className="p-6 border-b border-cream-300">
-            <h3 className="text-sm font-semibold text-cream-900 uppercase tracking-wide">Recent Questions</h3>
-            <p className="text-xs text-gray-600 mt-1">Click to reuse</p>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4">
-            {recentQuestions.length > 0 ? (
-              <div className="space-y-2">
-                {recentQuestions.map((q, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setInputMessage(q.content)}
-                    className="w-full text-left p-3 bg-white rounded-lg border border-cream-300 hover:border-cream-500 hover:shadow-sm transition-all group"
-                  >
-                    <div className="flex items-start gap-2">
-                      <Clock size={14} className="text-cream-500 mt-1 flex-shrink-0" />
-                      <p className="text-xs text-cream-900 line-clamp-2 leading-relaxed">{q.content}</p>
-                    </div>
-                    {q.timestamp && (
-                      <p className="text-[10px] text-gray-500 mt-2 ml-5">
-                        {formatTimestamp(q.timestamp)}
-                      </p>
-                    )}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <Clock className="mx-auto mb-2 text-gray-400" size={32} />
-                <p className="text-xs text-gray-600">No questions yet</p>
-                <p className="text-[10px] text-gray-500 mt-1">Your recent questions will appear here</p>
-              </div>
-            )}
           </div>
         </div>
       </div>
