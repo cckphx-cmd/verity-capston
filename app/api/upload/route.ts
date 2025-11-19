@@ -92,10 +92,5 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '50mb',
-    },
-  },
-};
+// Next.js App Router handles file uploads with FormData automatically
+// No need for body parser config

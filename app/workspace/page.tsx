@@ -116,7 +116,8 @@ export default function WorkspacePage() {
       // Cmd/Ctrl + K - Focus input
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        document.querySelector('input[type="text"]')?.focus();
+        const input = document.querySelector('input[type="text"]') as HTMLInputElement;
+        input?.focus();
       }
       // Cmd/Ctrl + E - Export conversation
       if ((e.metaKey || e.ctrlKey) && e.key === 'e') {

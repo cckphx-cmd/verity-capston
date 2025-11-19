@@ -118,7 +118,7 @@ export async function queryDocuments(
       );
       console.log(`[VectorDB] After filtering: ${filteredChunks.length} chunks`);
       console.log(`[VectorDB] Available documents in store:`,
-        [...new Set(vectorStore.map(c => c.metadata.documentName))]);
+        Array.from(new Set(vectorStore.map(c => c.metadata.documentName))));
     }
 
     if (filteredChunks.length === 0) {
