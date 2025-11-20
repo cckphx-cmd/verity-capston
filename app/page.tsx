@@ -7,29 +7,29 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-cream-100">
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-8 pt-20 pb-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 pt-12 sm:pt-20 pb-8 sm:pb-16">
         {/* Beta Badge */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <span className="text-xs font-medium text-cream-500 tracking-[1.5px]">
             AI WORKSPACE · BETA
           </span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="font-serif text-[56px] leading-[1.2] font-normal text-cream-900 mb-6 max-w-4xl">
+        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[56px] leading-[1.2] font-normal text-cream-900 mb-4 sm:mb-6 max-w-4xl">
           Make better decisions with an AI that reads your documents like a partner.
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg text-gray-400 leading-[1.6] mb-10 max-w-3xl">
+        <p className="text-base sm:text-lg text-gray-400 leading-[1.6] mb-8 sm:mb-10 max-w-3xl">
           Upload contracts, reports, and decks. Ask questions in plain language. Get answers you can actually act on.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-12 sm:mb-16">
           <Link
             href="/demo"
-            className="px-8 py-4 bg-cream-500 text-white rounded-lg font-medium hover:bg-cream-600 transition-colors"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-cream-500 text-white rounded-lg font-medium hover:bg-cream-600 transition-colors text-center"
           >
             Try Interactive Demo
           </Link>
@@ -37,14 +37,14 @@ export default function LandingPage() {
             href="https://www.youtube.com/watch?v=z2bQzpVgWzI"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-white border border-cream-300 text-cream-900 rounded-lg font-medium hover:border-cream-400 transition-colors"
+            className="px-6 sm:px-8 py-3 sm:py-4 bg-white border border-cream-300 text-cream-900 rounded-lg font-medium hover:border-cream-400 transition-colors text-center"
           >
             Watch Product Overview
           </a>
         </div>
 
-        {/* Preview Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-cream-300 overflow-hidden">
+        {/* Preview Card - Hidden on mobile */}
+        <div className="hidden md:block bg-white rounded-2xl shadow-xl border border-cream-300 overflow-hidden">
           <div className="flex h-[600px]">
             {/* Left Sidebar (30%) */}
             <div className="w-[30%] bg-cream-50 border-r border-cream-300 p-6">

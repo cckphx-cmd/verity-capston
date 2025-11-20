@@ -194,38 +194,38 @@ export default function DemoPage() {
       {/* Hero Section - Only show when no messages */}
       {messages.length === 1 && (
         <div className="bg-gradient-to-br from-cream-500 to-cream-600 border-b border-cream-700">
-          <div className="max-w-6xl mx-auto px-8 py-8">
-            <div className="mb-4 flex items-center gap-3">
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
+            <div className="mb-3 sm:mb-4 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
               <span className="text-xs font-medium text-cream-100 tracking-[1.5px]">
                 INTERACTIVE DEMO · VERITY
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
+              <span className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
                 <Sparkles size={12} className="text-white" />
                 <span className="text-xs font-medium text-white">12 Documents Pre-loaded</span>
               </span>
             </div>
-            <h1 className="font-serif text-4xl leading-[1.2] font-normal text-white max-w-3xl">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl leading-[1.2] font-normal text-white max-w-3xl">
               Try Verity with real business documents. No upload required.
             </h1>
           </div>
         </div>
       )}
 
-      <div className="flex h-[calc(100vh-73px)]">
+      <div className="flex flex-col lg:flex-row h-[calc(100vh-60px)] sm:h-[calc(100vh-73px)]">
         {/* MAIN AREA - Chat Interface */}
         <div className="flex-1 bg-white flex flex-col">
           {/* Header with Input at Top */}
-          <div className="border-b border-cream-300 px-8 py-6">
-            <div className="flex items-center justify-between mb-4">
+          <div className="border-b border-cream-300 px-4 sm:px-8 py-4 sm:py-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h2 className="text-2xl font-medium text-cream-900">Document Q&A</h2>
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 bg-cream-500/10 border border-cream-500/20 rounded-md">
-                    <Sparkles size={14} className="text-cream-500" />
-                    <span className="text-xs font-medium text-cream-600">DEMO MODE</span>
+                  <h2 className="text-xl sm:text-2xl font-medium text-cream-900">Document Q&A</h2>
+                  <span className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 bg-cream-500/10 border border-cream-500/20 rounded-md">
+                    <Sparkles size={12} className="text-cream-500" />
+                    <span className="text-[10px] sm:text-xs font-medium text-cream-600">DEMO</span>
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
+                <p className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">
                   {selectedDocuments.length > 0
                     ? `Querying ${selectedDocuments.length} pre-loaded demo document${documents.length > 1 ? 's' : ''}`
                     : 'Loading demo documents...'}
@@ -244,27 +244,27 @@ export default function DemoPage() {
             </div>
 
             {/* Input Area at Top */}
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !isProcessing && handleSendMessage()}
-                placeholder="Try: 'What are the key terms in the NovaTech contract?'"
-                className="flex-1 px-5 py-4 bg-white border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cream-500 text-cream-900 text-sm placeholder:text-gray-600"
+                placeholder="Ask about the documents..."
+                className="flex-1 px-3 sm:px-5 py-3 sm:py-4 bg-white border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cream-500 text-cream-900 text-sm placeholder:text-gray-600"
                 disabled={isProcessing || selectedDocuments.length === 0}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={isProcessing || !inputMessage.trim() || selectedDocuments.length === 0}
-                className="px-8 py-4 bg-cream-500 text-white rounded-lg hover:bg-cream-600 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 sm:px-8 py-3 sm:py-4 bg-cream-500 text-white rounded-lg hover:bg-cream-600 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isProcessing ? <Loader2 className="animate-spin" size={20} /> : 'Send'}
+                {isProcessing ? <Loader2 className="animate-spin" size={18} /> : 'Send'}
               </button>
             </div>
 
-            {/* Keyboard Shortcuts Hint */}
-            <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500">
+            {/* Keyboard Shortcuts Hint - Hidden on mobile */}
+            <div className="mt-3 hidden sm:flex items-center justify-center gap-4 text-xs text-gray-500">
               <div className="flex items-center gap-1">
                 <Command size={12} />
                 <span>K</span>
@@ -285,7 +285,7 @@ export default function DemoPage() {
           </div>
 
           {/* Chat Messages Area */}
-          <div className="flex-1 overflow-y-auto p-8 space-y-6">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-4 sm:space-y-6">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -369,8 +369,8 @@ export default function DemoPage() {
           </div>
         </div>
 
-        {/* RIGHT SIDEBAR - Question History */}
-        <div className="w-80 bg-cream-50 border-l border-cream-300 flex flex-col">
+        {/* RIGHT SIDEBAR - Question History - Hidden on mobile */}
+        <div className="hidden lg:flex lg:w-80 bg-cream-50 border-l border-cream-300 flex-col">
           <div className="p-6 border-b border-cream-300">
             <h3 className="text-sm font-semibold text-cream-900 uppercase tracking-wide">Recent Questions</h3>
             <p className="text-xs text-gray-600 mt-1">Click to reuse</p>

@@ -15,16 +15,16 @@ export default function Navigation() {
   ];
 
   return (
-    <header className="bg-white border-b border-cream-300 px-8 py-4">
+    <header className="bg-white border-b border-cream-300 px-4 sm:px-8 py-3 sm:py-4">
       <div className="flex items-center justify-between">
         {/* Left section */}
-        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <Brain className="text-cream-500" size={28} />
-          <h1 className="text-lg font-medium text-cream-900">Verity</h1>
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity">
+          <Brain className="text-cream-500" size={24} />
+          <h1 className="text-base sm:text-lg font-medium text-cream-900">Verity</h1>
         </Link>
 
-        {/* Center section - Navigation links */}
-        <nav className="flex items-center gap-8">
+        {/* Center section - Navigation links - Hidden on small screens */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -40,10 +40,10 @@ export default function Navigation() {
           ))}
         </nav>
 
-        {/* Right section - User */}
-        <div className="flex items-center gap-3">
-          <div className="text-sm text-gray-600">Courtney Kingsbury</div>
-          <div className="w-10 h-10 rounded-full bg-cream-400 flex items-center justify-center text-white font-semibold text-sm">
+        {/* Right section - User - Simplified on mobile */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden sm:block text-sm text-gray-600">Courtney Kingsbury</div>
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cream-400 flex items-center justify-center text-white font-semibold text-xs sm:text-sm">
             CK
           </div>
         </div>
