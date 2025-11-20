@@ -48,13 +48,13 @@ export default function DocumentationPage() {
         {/* Hero Section */}
         <div className="mb-12">
           <h1 className="text-5xl font-light text-cream-900 mb-4">
-            Building a Production RAG System
+            Verity: Building a Production RAG System
           </h1>
           <p className="text-xl text-gray-600 mb-4">
-            Evaluation, methodology, and results
+            Capstone evaluation, methodology, and results
           </p>
           <p className="text-sm text-cream-500">
-            By Courtney Kingsbury, AI Product Owner
+            By Courtney Kingsbury
           </p>
         </div>
 
@@ -91,7 +91,7 @@ export default function DocumentationPage() {
                 <div>
                   <h3 className="text-lg font-medium text-cream-900 mb-2">What This System Does</h3>
                   <p className="leading-relaxed">
-                    The Business Intelligence Suite is an AI-powered document Q&A system that enables professionals to interact with business documents through natural language. Users upload contracts, reports, and presentations, then ask questions in plain English to receive accurate, cited answers drawn from their own documents in under 3 seconds.
+                    Verity is an AI-powered document Q&A system that enables professionals to interact with business documents through natural language. Users upload contracts, reports, and presentations, then ask questions in plain English to receive accurate, cited answers drawn from their own documents in under 3 seconds.
                   </p>
                 </div>
 
@@ -163,7 +163,7 @@ export default function DocumentationPage() {
 
               <div className="space-y-4 text-cream-50 leading-relaxed">
                 <p className="text-lg">
-                  I evaluated my Business Intelligence Suite on <strong>30 test questions</strong> spanning <strong>6 categories</strong>. The system achieved an <strong>83% response rate</strong> with <strong>100% source citation</strong>.
+                  I evaluated Verity on <strong>30 test questions</strong> spanning <strong>6 categories</strong>. The system achieved an <strong>83% response rate</strong> with <strong>100% source citation</strong>.
                 </p>
                 <p>
                   Critically, it demonstrated <strong>zero hallucinations</strong>—correctly identifying when information wasn't available rather than generating plausible-sounding false answers. This makes it trustworthy for business decision-making.
@@ -297,7 +297,7 @@ export default function DocumentationPage() {
                       <li className="flex gap-3">
                         <span className="font-semibold text-cream-500 flex-shrink-0">4.</span>
                         <div>
-                          <strong>Storage:</strong> Chunks and embeddings stored with metadata (filename, page numbers, chunk position, timestamps) in LangChain's MemoryVectorStore with automatic fallback to full-text retrieval
+                          <strong>Storage:</strong> Chunks and embeddings stored with metadata (filename, page numbers, chunk position, timestamps) in a custom in-memory vector store with automatic fallback to full-text retrieval
                         </div>
                       </li>
                       <li className="flex gap-3">
@@ -393,7 +393,7 @@ export default function DocumentationPage() {
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li>• Claude Sonnet 4 (Anthropic)</li>
                         <li>• OpenAI Embeddings (text-embedding-3-small)</li>
-                        <li>• LangChain (MemoryVectorStore)</li>
+                        <li>• Custom in-memory vector store</li>
                         <li>• pdf-parse (Document processing)</li>
                         <li>• Node.js File System</li>
                         <li>• LocalStorage for persistence</li>
@@ -455,7 +455,7 @@ export default function DocumentationPage() {
                     <li><strong>Next.js 14 (App Router):</strong> Server-side rendering, API routes, excellent developer experience, zero-config deployment to Vercel</li>
                     <li><strong>Claude Sonnet 4:</strong> Latest model (20250514) with superior reading comprehension, reliable citations, 200K context window, and excellent instruction following for citation requirements</li>
                     <li><strong>OpenAI text-embedding-3-small:</strong> Cost-effective embedding model (1536 dimensions) providing semantic search capabilities with excellent performance/cost ratio</li>
-                    <li><strong>LangChain MemoryVectorStore:</strong> In-memory vector database for fast similarity search with automatic fallback to full-text retrieval</li>
+                    <li><strong>Custom Vector Store:</strong> In-memory vector database for fast similarity search using cosine similarity with automatic fallback to full-text retrieval</li>
                     <li><strong>TypeScript:</strong> Type safety catches bugs at compile-time, improves code maintainability, better IDE support</li>
                     <li><strong>500-token chunking with 50-token overlap:</strong> Balances context preservation with model efficiency; overlap ensures continuity across chunk boundaries</li>
                     <li><strong>Top-10 retrieval:</strong> Retrieves 10 most semantically similar chunks using cosine similarity for optimal context without overwhelming the LLM</li>

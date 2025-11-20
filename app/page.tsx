@@ -28,16 +28,18 @@ export default function LandingPage() {
         {/* CTA Buttons */}
         <div className="flex items-center gap-4 mb-16">
           <Link
-            href="/workspace"
+            href="/demo"
             className="px-8 py-4 bg-cream-500 text-white rounded-lg font-medium hover:bg-cream-600 transition-colors"
           >
-            Start a demo workspace
+            Try Interactive Demo
           </Link>
           <a
-            href="#"
+            href="https://www.youtube.com/watch?v=z2bQzpVgWzI"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 bg-white border border-cream-300 text-cream-900 rounded-lg font-medium hover:border-cream-400 transition-colors"
           >
-            Watch a 2-minute walkthrough
+            Watch Product Overview
           </a>
         </div>
 

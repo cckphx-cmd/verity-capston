@@ -1,26 +1,77 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useAppContext } from '../context/AppContext';
 import Navigation from '../components/Navigation';
 import PDFModal from '../components/PDFModal';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Loader2, FileText, Clock, ArrowRight, Download, Command } from 'lucide-react';
-import Link from 'next/link';
+import { Loader2, FileText, Clock, Download, Command, Sparkles } from 'lucide-react';
 
-export default function WorkspacePage() {
-  const { documents, messages, addMessage, incrementQuestions, selectedDocuments } = useAppContext();
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp?: string;
+}
+
+interface Document {
+  name: string;
+  size: number;
+  pages: number;
+  uploadedAt: string;
+  storedAs: string;
+}
+
+export default function DemoPage() {
+  // Local state for demo mode (not using AppContext)
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [selectedDocuments, setSelectedDocuments] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: 'Welcome to the Verity demo! I have 12 curated documents loaded. Ask me anything about contracts, legal agreements, or the quarterly business report.' }
+  ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [pdfModal, setPdfModal] = useState<{ filename: string; page: number } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Load demo documents on mount
+  useEffect(() => {
+    const loadDemoDocuments = async () => {
+      console.log('[DEMO PAGE] Starting to load demo documents...');
+      try {
+        const response = await fetch('/api/demo/documents');
+        console.log('[DEMO PAGE] API response status:', response.status);
+
+        const data = await response.json();
+        console.log('[DEMO PAGE] API response data:', data);
+
+        if (data.success && data.documents) {
+          console.log('[DEMO PAGE] Setting documents:', data.documents.length);
+          setDocuments(data.documents);
+          // Auto-select all demo documents
+          const selectedDocs = data.documents.map((doc: Document) => doc.storedAs);
+          console.log('[DEMO PAGE] Auto-selecting documents:', selectedDocs);
+          setSelectedDocuments(selectedDocs);
+        } else {
+          console.warn('[DEMO PAGE] No documents in response');
+        }
+      } catch (error) {
+        console.error('[DEMO PAGE] Error loading demo documents:', error);
+      }
+    };
+
+    loadDemoDocuments();
+  }, []);
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || selectedDocuments.length === 0 || isProcessing) return;
 
     // Add user message
-    addMessage({ role: 'user', content: inputMessage });
+    const userMessage: Message = {
+      role: 'user',
+      content: inputMessage,
+      timestamp: new Date().toISOString()
+    };
+    setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsProcessing(true);
 
@@ -38,20 +89,23 @@ export default function WorkspacePage() {
 
       if (response.ok) {
         const data = await response.json();
-        addMessage({
+        const assistantMessage: Message = {
           role: 'assistant',
           content: data.response,
-        });
-        incrementQuestions();
+          timestamp: new Date().toISOString()
+        };
+        setMessages(prev => [...prev, assistantMessage]);
       } else {
         throw new Error('Query failed');
       }
     } catch (error) {
       console.error('Query error:', error);
-      addMessage({
+      const errorMessage: Message = {
         role: 'assistant',
         content: 'Sorry, I encountered an error processing your question. Please try again.',
-      });
+        timestamp: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsProcessing(false);
     }
@@ -140,18 +194,19 @@ export default function WorkspacePage() {
       {/* Hero Section - Only show when no messages */}
       {messages.length === 1 && (
         <div className="bg-gradient-to-br from-cream-500 to-cream-600 border-b border-cream-700">
-          <div className="max-w-6xl mx-auto px-8 py-12">
-            <div className="mb-4">
+          <div className="max-w-6xl mx-auto px-8 py-8">
+            <div className="mb-4 flex items-center gap-3">
               <span className="text-xs font-medium text-cream-100 tracking-[1.5px]">
-                AI WORKSPACE · VERITY
+                INTERACTIVE DEMO · VERITY
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
+                <Sparkles size={12} className="text-white" />
+                <span className="text-xs font-medium text-white">12 Documents Pre-loaded</span>
               </span>
             </div>
-            <h1 className="font-serif text-4xl leading-[1.2] font-normal text-white mb-4 max-w-3xl">
-              Ask questions about your documents. Get accurate answers instantly.
+            <h1 className="font-serif text-4xl leading-[1.2] font-normal text-white max-w-3xl">
+              Try Verity with real business documents. No upload required.
             </h1>
-            <p className="text-lg text-cream-100 leading-[1.6] max-w-2xl">
-              Upload contracts, reports, and decks. Ask in plain language. Get cited, actionable answers in seconds.
-            </p>
           </div>
         </div>
       )}
@@ -163,13 +218,17 @@ export default function WorkspacePage() {
           <div className="border-b border-cream-300 px-8 py-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-2xl font-medium text-cream-900">Document Q&A</h2>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="text-2xl font-medium text-cream-900">Document Q&A</h2>
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 bg-cream-500/10 border border-cream-500/20 rounded-md">
+                    <Sparkles size={14} className="text-cream-500" />
+                    <span className="text-xs font-medium text-cream-600">DEMO MODE</span>
+                  </span>
+                </div>
                 <p className="text-sm text-gray-600 mt-2">
                   {selectedDocuments.length > 0
-                    ? `Querying ${selectedDocuments.length} of ${documents.length} document${documents.length > 1 ? 's' : ''}`
-                    : documents.length > 0
-                    ? 'Select documents from the Upload page to start'
-                    : 'Upload documents to start asking questions'}
+                    ? `Querying ${selectedDocuments.length} pre-loaded demo document${documents.length > 1 ? 's' : ''}`
+                    : 'Loading demo documents...'}
                 </p>
               </div>
               {messages.length > 1 && (
@@ -191,7 +250,7 @@ export default function WorkspacePage() {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !isProcessing && handleSendMessage()}
-                placeholder="Ask a question about your documents..."
+                placeholder="Try: 'What are the key terms in the NovaTech contract?'"
                 className="flex-1 px-5 py-4 bg-white border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cream-500 text-cream-900 text-sm placeholder:text-gray-600"
                 disabled={isProcessing || selectedDocuments.length === 0}
               />
@@ -297,17 +356,11 @@ export default function WorkspacePage() {
 
             {documents.length === 0 && messages.length === 1 && (
               <div className="text-center py-16">
-                <FileText className="mx-auto mb-4 text-gray-400" size={48} />
-                <h3 className="text-lg font-medium text-cream-900 mb-2">No documents uploaded yet</h3>
-                <p className="text-sm text-gray-600 mb-6">
-                  Upload PDF documents to start asking questions and get AI-powered insights
+                <Loader2 className="mx-auto mb-4 text-cream-500 animate-spin" size={48} />
+                <h3 className="text-lg font-medium text-cream-900 mb-2">Loading demo documents...</h3>
+                <p className="text-sm text-gray-600">
+                  Please wait while we load 12 curated business documents
                 </p>
-                <Link
-                  href="/upload"
-                  className="inline-block px-6 py-3 bg-cream-500 text-white rounded-lg text-sm font-medium hover:bg-cream-600 transition-colors"
-                >
-                  Upload Documents
-                </Link>
               </div>
             )}
 

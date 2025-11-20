@@ -8,7 +8,7 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: '/workspace', label: 'Workspace' },
+    // Workspace hidden from nav but accessible at /workspace
     { href: '/analytics', label: 'Analytics' },
     { href: '/upload', label: 'Upload' },
     { href: '/documentation', label: 'Documentation' },
@@ -20,7 +20,7 @@ export default function Navigation() {
         {/* Left section */}
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <Brain className="text-cream-500" size={28} />
-          <h1 className="text-lg font-medium text-cream-900">Business Intelligence Suite</h1>
+          <h1 className="text-lg font-medium text-cream-900">Verity</h1>
         </Link>
 
         {/* Center section - Navigation links */}
