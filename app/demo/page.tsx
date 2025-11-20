@@ -117,9 +117,12 @@ export default function DemoPage() {
     return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   };
 
-  // Scroll to bottom when new messages arrive
+  // Scroll to bottom when new messages arrive (but not on initial load)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Only auto-scroll if we have more than the initial welcome message
+    if (messages.length > 1) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
   // Intercept citation link clicks to open PDF modal

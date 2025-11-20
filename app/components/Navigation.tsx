@@ -9,6 +9,7 @@ export default function Navigation() {
 
   const navLinks = [
     // Workspace hidden from nav but accessible at /workspace
+    { href: '/demo', label: 'Demo' },
     { href: '/analytics', label: 'Analytics' },
     { href: '/upload', label: 'Upload' },
     { href: '/documentation', label: 'Documentation' },
