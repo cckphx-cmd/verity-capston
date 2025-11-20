@@ -1,0 +1,20 @@
+
+
+Pioneer Labs – Service Agreement
+Parties
+This Agreement is made between Pioneer Labs and RedLeaf Systems, collectively referred to as the
+Parties.
+Scope of Work
+Pioneer Labs agrees to provide services related to data analytics.
+Payment Terms
+Client shall pay Pioneer Labs a total fee of $42820, payable within Net 30 days.
+Term
+This Agreement begins on 2025-01-01 and continues until 2025-12-31, unless terminated earlier.
+Termination
+Either party may terminate this Agreement with 28 days written notice.
+Confidentiality
+Both Parties agree to keep proprietary information confidential.
+Indemnification
+Pioneer Labs shall not be liable for incidental or consequential damages.
+Governing Law
+This Agreement is governed by the laws of the State of Arizona.
