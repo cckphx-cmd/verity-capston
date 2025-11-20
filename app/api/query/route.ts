@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { queryDocuments, checkVectorSearchAvailable } from '@/lib/vectordb';
@@ -66,17 +66,46 @@ export async function POST(request: NextRequest) {
     if (!documentContents) {
       console.log('⚠ Using full-text retrieval (vector search unavailable)');
       const uploadsDir = join(process.cwd(), 'uploads');
+      const demoUploadsDir = join(process.cwd(), 'public', 'demo-uploads');
 
       for (const docName of documents) {
-        // Find the stored file
-        const files = await readdir(uploadsDir);
-        const textFile = files.find(f => f.includes(docName.replace('.pdf', '')) && f.endsWith('.txt'));
+        let foundFile = false;
 
-        if (textFile) {
-          const filepath = join(uploadsDir, textFile);
-          if (existsSync(filepath)) {
-            const content = await readFile(filepath, 'utf-8');
-            documentContents += `\n\n--- Document: ${docName} ---\n${content}`;
+        // Try regular uploads directory first
+        if (existsSync(uploadsDir)) {
+          try {
+            const files = await readdir(uploadsDir);
+            const textFile = files.find(f => f.includes(docName.replace('.pdf', '')) && f.endsWith('.txt'));
+
+            if (textFile) {
+              const filepath = join(uploadsDir, textFile);
+              if (existsSync(filepath)) {
+                const content = await readFile(filepath, 'utf-8');
+                documentContents += `\n\n--- Document: ${docName} ---\n${content}`;
+                foundFile = true;
+              }
+            }
+          } catch (error) {
+            console.log(`Could not read from uploads dir: ${error}`);
+          }
+        }
+
+        // If not found, try demo uploads directory
+        if (!foundFile && existsSync(demoUploadsDir)) {
+          try {
+            const demoFiles = await readdir(demoUploadsDir);
+            const textFile = demoFiles.find(f => f.includes(docName.replace('.pdf', '')) && f.endsWith('.txt'));
+
+            if (textFile) {
+              const filepath = join(demoUploadsDir, textFile);
+              if (existsSync(filepath)) {
+                const content = await readFile(filepath, 'utf-8');
+                documentContents += `\n\n--- Document: ${docName} ---\n${content}`;
+                foundFile = true;
+              }
+            }
+          } catch (error) {
+            console.log(`Could not read from demo uploads dir: ${error}`);
           }
         }
       }
@@ -139,6 +168,3 @@ Please provide a clear, well-structured answer based on the documents above usin
     );
   }
 }
-
-// Import readdir at the top
-import { readdir } from 'fs/promises';
