@@ -43,9 +43,9 @@ export default function LandingPage() {
           </a>
         </div>
 
-        {/* Preview Card - Hidden on mobile */}
-        <div className="hidden md:block bg-white rounded-2xl shadow-xl border border-cream-300 overflow-hidden">
-          <div className="flex h-[600px]">
+        {/* Preview Card - Responsive height */}
+        <div className="bg-white rounded-2xl shadow-xl border border-cream-300 overflow-hidden">
+          <div className="flex h-[400px] sm:h-[500px] md:h-[600px]">
             {/* Left Sidebar (30%) */}
             <div className="w-[30%] bg-cream-50 border-r border-cream-300 p-6">
               <div className="mb-6">
